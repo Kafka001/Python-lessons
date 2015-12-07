@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }}
+    {{ App_new.field1 }}
+{% endblock %}
+
+{% block content2 %}
+    <h1>{{ page.field1 }}</h1>
+    <div>{{ page.field2 }}</div>
+
+   <div><form action="{% url 'inner_page' page.id %}" method="post">
+       <h3> В поле можете добавить комментарий </h3>
+        {% csrf_token %}
+        {{ form_comment }}
+        <input type="submit" value="ok">
+   </form>
+   </div>
+
+   <div><h1>Comments:</h1>
+       {% for comm in comments %}
+
+       <h3>{{ comm.comment_author }}</h3>
+       <div>{{ comm.comment_content }}</div>
+
+       {% endfor %}
+   </div>
+
+{% endblock %}
